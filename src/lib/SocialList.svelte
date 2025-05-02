@@ -1,9 +1,5 @@
 <script lang="ts">
-    interface Social {
-        name: string,
-        targetUrl: string,
-        faClass: string,
-    }
+    import type { Social } from "./models/social";
 
     let { socials }: { socials: Social[] } = $props();
 </script>

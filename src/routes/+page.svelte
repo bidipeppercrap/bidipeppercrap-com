@@ -1,20 +1,29 @@
-<script>
+<script lang="ts">
     import "../app.css";
-    import "@fortawesome/fontawesome-free/css/all.min.css"
+    import "@fortawesome/fontawesome-free/css/all.min.css";
+    import type { Project } from "$lib/models/project";
+    import type { Social } from "$lib/models/social";
     import MainHeader from "$lib/MainHeader.svelte";
     import ProjectList from "$lib/ProjectList.svelte";
     import SocialList from "$lib/SocialList.svelte";
 
-    const projects = [
-        { name: "spelltest", logoUrl: "/spelltest.svg", targetUrl: "https://spelltest.bidipeppercrap.com" },
-        { name: "takkat", logoUrl: "/takkat.svg" },
-    ];
+    let { data } = $props();
 
-    const socials = [
-        { targetUrl: "https://facebook.com/bidipeppercrap", name: "fb", faClass: "fa-brands fa-facebook" },
-        { targetUrl: "https://instagram.com/_bidipeppercrap", name: "ig", faClass: "fa-brands fa-instagram" },
-        { name: "artstation", faClass: "fa-brands fa-artstation", targetUrl: "https://artstation.com/bidipeppercrap" }
-    ]
+    const { projects: rawProjects, socials: rawSocials } = data;
+    const projects: Project[] = rawProjects.map((p: { name: any; target_url: any; logo_url: any; }) => {
+        return {
+            name: p.name,
+            targetUrl: p.target_url,
+            logoUrl: p.logo_url
+        }
+    });
+    const socials: Social[] = rawSocials.map((s: { name: any; target_url: any; fa_class: any; }) => {
+        return {
+            name: s.name,
+            targetUrl: s.target_url,
+            faClass: s.fa_class
+        }
+    });
 </script>
 
 <main class="p-8 grid gap-8">

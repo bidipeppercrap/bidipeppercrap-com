@@ -1,9 +1,5 @@
 <script lang="ts">
-    interface Project {
-        targetUrl?: string,
-        name: string,
-        logoUrl: string,
-    }
+    import type { Project } from "./models/project";
 
     let { projects }: { projects: Project[] } = $props();
 </script>
