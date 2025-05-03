@@ -26,6 +26,10 @@
     });
 </script>
 
+<svelte:head>
+	<title>bidipeppercrap</title>
+</svelte:head>
+
 <main class="p-8 grid gap-8">
     <MainHeader />
     <ProjectList {projects} />

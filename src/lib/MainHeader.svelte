@@ -1,5 +1,11 @@
+<script lang="ts">
+    import logo from '$lib/assets/main_logo.svg';
+</script>
+
 <div class="w-full bg-emerald-900 p-8 rounded-3xl flex justify-center relative overflow-hidden">
-    <div class="h-50">header</div>
+    <div class="h-50 flex z-100 items-center">
+        <img class="invert h-12" src={logo} alt="bidipeppercrap logo">
+    </div>
     <div class="blob bg-emerald-900"></div>
     <div class="blob bg-cyan-500"></div>
     <div class="blob bg-green-300"></div>
