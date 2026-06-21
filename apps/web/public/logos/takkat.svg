@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210"
+   height="30"
+   viewBox="0 0 55.562497 7.9375002"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <g
+     id="layer1">
+    <path
+       id="rect12"
+       style="fill:#000000;stroke-width:0.999998;stroke-linecap:round;paint-order:stroke fill markers"
+       d="M 0,0 V 2.6458333 H 2.6458333 V 5.2916666 7.9374999 H 5.2916666 V 5.2916666 2.6458333 H 7.9374999 V 0 H 5.2916666 2.6458333 Z" />
+    <path
+       id="rect22"
+       style="fill:#000000;stroke-width:0.999998;stroke-linecap:round;paint-order:stroke fill markers"
+       d="m 10.583333,0 v 2.6458333 2.6458333 2.6458333 h 2.645833 V 5.2916666 2.6458333 H 15.875 v 2.6458333 2.6458333 h 2.645833 V 5.2916666 2.6458333 0 H 15.875 13.229166 Z" />
+    <path
+       id="rect35"
+       style="fill:#000000;stroke-width:0.999998;stroke-linecap:round;paint-order:stroke fill markers"
+       d="M 21.166666,0 V 2.6458333 5.2916666 7.9374999 H 23.8125 V 5.2916666 h 2.645833 V 2.6458333 H 23.8125 V 0 Z m 5.291667,2.6458333 h 2.645833 V 0 h -2.645833 z m 2.645833,0 V 5.2916666 H 31.75 v 2.6458333 h 2.645833 V 5.2916666 2.6458333 0 H 31.75 v 2.6458333 z m 0,2.6458333 h -2.645833 v 2.6458333 h 2.645833 z" />
+    <path
+       id="rect45"
+       style="fill:#000000;stroke-width:0.999998;stroke-linecap:round;paint-order:stroke fill markers"
+       d="m -47.624999,0 v 2.6458333 h -2.645834 v 2.6458333 2.6458333 h -2.645833 V 5.2916666 2.6458333 h -2.645833 V 0 h 2.645833 2.645833 z"
+       transform="scale(-1,1)" />
+    <path
+       id="rect52"
+       style="fill:#000000;stroke-width:0.999998;stroke-linecap:round;paint-order:stroke fill markers"
+       d="m -37.041666,0 v 2.6458333 2.6458333 2.6458333 h -2.645833 V 5.2916666 2.6458333 h -2.645834 v 2.6458333 2.6458333 h -2.645833 V 5.2916666 2.6458333 0 h 2.645833 2.645834 z"
+       transform="scale(-1,1)" />
+  </g>
+</svg>

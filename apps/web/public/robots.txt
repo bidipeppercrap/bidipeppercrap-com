@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bidipeppercrap.com/sitemap-index.xml

@@ -1,0 +1,15 @@
+{
+  "name": "bidipeppercrap-com",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "bun run --filter web dev",
+    "build": "bun run --filter web build",
+    "preview": "bun run --filter web preview",
+    "check": "bun run --filter '*' check"
+  }
+}

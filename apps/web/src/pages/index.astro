@@ -1,0 +1,27 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import ProjectList from "../components/ProjectList.astro";
+import SocialList from "../components/SocialList.astro";
+import { getProjects, getSocials } from "../data/content";
+
+const projects = await getProjects();
+const socials = await getSocials();
+---
+
+<Base title="bidipeppercrap">
+  <main class="p-8 grid gap-8">
+    <Header />
+    <ProjectList projects={projects} />
+    {
+      socials.length > 0 && (
+        <Fragment>
+          <h1 class="text-white m-auto text-5xl font-black drop-shadow-[0_0_8px_rgba(255,255,255,0.25)]">
+            Progress &amp; Artwork
+          </h1>
+          <SocialList socials={socials} />
+        </Fragment>
+      )
+    }
+  </main>
+</Base>
