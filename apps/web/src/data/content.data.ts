@@ -2,10 +2,10 @@ import type { Project, Social } from "@bidipeppercrap/schema";
 
 /**
  * Real content, pulled from the live site (api.bidipeppercrap.com) on 2026-06-21.
- * Logos were downloaded into `public/logos/` so the site has no runtime
- * dependency on the old API/R2.
+ * Logos live in `public/logos/` so the site has no runtime dependencies.
  *
- * In Phase 2 this file goes away and content comes from the API at build time.
+ * This is the content source: edit it, commit, and push — Cloudflare Pages
+ * rebuilds and redeploys automatically.
  */
 
 export const projects: Project[] = [

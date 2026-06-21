@@ -1,16 +1,15 @@
 # bidipeppercrap.com
 
-Personal site, rebuilt as a Cloudflare-hosted monorepo.
+Personal site — a static Astro app hosted on Cloudflare Pages. Content lives in
+the repo, so updating the site is just a `git push`. No backend, no database.
 
 ## Layout
 
 ```
 apps/
   web/          # Astro — public page. Static, 0 JS. Deploys to Cloudflare Pages.
-  console/      # (Phase 2) SvelteKit admin — migrate from bidipeppercrap-console
-  api/          # (Phase 2) Hono + Drizzle + D1 backend — migrate from bidipeppercrap-api
 packages/
-  schema/       # shared types + Zod for Project / Social (single source of truth)
+  schema/       # types + Zod for Project / Social
 ```
 
 ## Stack
@@ -18,7 +17,7 @@ packages/
 - **bun** — package manager / workspaces
 - **Astro + Tailwind 4** — static public site, zero client JS
 - **astro-icon** (Iconify) — inlined SVG social icons, no FontAwesome
-- **Cloudflare Pages** — hosting (deploy hook triggers rebuild on content change)
+- **Cloudflare Pages** — hosting (auto-deploys on every push to `main`)
 
 ## Develop
 
@@ -29,13 +28,11 @@ bun run build     # static build -> apps/web/dist
 bun run preview   # preview the build
 ```
 
-## Data flow (Option A — static, rebuild on change)
+## Content
 
-Content (projects / socials) changes ~twice a year, so the site is fully
-static. Phase 1 reads content from a local data file. Phase 2 will fetch it
-from the API at build time and have the console fire a Cloudflare deploy hook
-on save, so the site rebuilds automatically. The seam lives in
-`apps/web/src/data/content.ts` — only its internals change between phases.
+Projects and socials live in `apps/web/src/data/content.data.ts`, validated
+against the shared schema at build time. Logos go in `apps/web/public/logos/`.
+To update the site: edit that file, commit, and push (see Deploy below).
 
 ## Deploy (Cloudflare Pages)
 
@@ -61,18 +58,19 @@ bun run build
 bunx wrangler pages deploy apps/web/dist --project-name=bidipeppercrap-com
 ```
 
-### Rebuild on content change (Option A)
+### Updating content
 
-Content is baked in at build time, so updating it requires a rebuild:
+Content lives in the repo, so updating the site is just a push:
 
-1. In the Pages project → **Settings → Builds & deployments → Deploy hooks**,
-   create a hook. You get a unique URL.
-2. POST to it to trigger a rebuild:
-   ```sh
-   curl -X POST "<your-deploy-hook-url>"
-   ```
-3. Phase 2: the API will POST this hook automatically after a content save, so
-   editing in the console rebuilds the site with no manual step.
+```sh
+# edit apps/web/src/data/content.data.ts
+# (add any new logos to apps/web/public/logos/)
+git commit -am "update content"
+git push
+```
+
+Cloudflare Pages rebuilds and deploys automatically on every push to `main`
+(~30s). No manual deploy step.
 
 ### Custom domain
 

@@ -5,8 +5,8 @@ import ProjectList from "../components/ProjectList.astro";
 import SocialList from "../components/SocialList.astro";
 import { getProjects, getSocials } from "../data/content";
 
-const projects = await getProjects();
-const socials = await getSocials();
+const projects = getProjects();
+const socials = getSocials();
 ---
 
 <Base title="bidipeppercrap">
