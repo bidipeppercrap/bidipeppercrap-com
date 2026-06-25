@@ -1,0 +1,13 @@
+{
+  // Workers Static Assets — serves the Astro build as a static, server-less
+  // site (no `main` Worker entrypoint). `wrangler deploy` is run from this
+  // directory (see README → Deploy), so `./dist` resolves to apps/web/dist.
+  //
+  // `name` is the Worker this deploys to — keep it matching the Worker in the
+  // Cloudflare dashboard (Workers & Pages) or you'll create a second one.
+  "name": "bidipeppercrap-com",
+  "compatibility_date": "2026-06-25",
+  "assets": {
+    "directory": "./dist"
+  }
+}
