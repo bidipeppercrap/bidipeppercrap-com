@@ -1,32 +1,60 @@
 ---
 // Static brand header with the animated CSS "blob" backdrop.
-// No JS — pure CSS keyframes, disabled under prefers-reduced-motion.
+// Pure CSS keyframes (transform-only) + a SINGLE blur pass over the blob
+// layer. The animation pauses while scrolled off-screen and is disabled
+// entirely under prefers-reduced-motion.
 ---
 
 <div
-  class="w-full bg-emerald-900 p-8 rounded-3xl flex justify-center relative overflow-hidden"
+  class="blob-stage w-full bg-emerald-900 p-8 rounded-3xl flex justify-center relative overflow-hidden"
 >
   <div class="h-50 flex z-100 items-center">
     <img class="invert h-12" src="/main_logo.svg" alt="bidipeppercrap logo" />
   </div>
-  <div class="blob bg-emerald-900"></div>
-  <div class="blob bg-cyan-500"></div>
-  <div class="blob bg-green-300"></div>
-  <div class="blob bg-yellow-500"></div>
-  <div class="blob bg-amber-100"></div>
-  <div class="blob bg-pink-800"></div>
-  <div class="blob bg-cyan-500"></div>
-  <div class="blob bg-green-300"></div>
-  <div class="blob bg-amber-100"></div>
-  <div class="blob bg-pink-800"></div>
-  <div class="blob bg-green-500"></div>
+  <div class="blobs absolute inset-0">
+    <div class="blob bg-emerald-900"></div>
+    <div class="blob bg-cyan-500"></div>
+    <div class="blob bg-green-300"></div>
+    <div class="blob bg-yellow-500"></div>
+    <div class="blob bg-amber-100"></div>
+    <div class="blob bg-pink-800"></div>
+    <div class="blob bg-cyan-500"></div>
+    <div class="blob bg-green-300"></div>
+    <div class="blob bg-amber-100"></div>
+    <div class="blob bg-pink-800"></div>
+    <div class="blob bg-green-500"></div>
+  </div>
   <div
-    class="absolute h-full w-full backdrop-blur-3xl rounded-3xl top-0 left-0 inset-ring-2 inset-ring-white/10"
+    class="absolute h-full w-full rounded-3xl top-0 left-0 inset-ring-2 inset-ring-white/10"
   >
   </div>
 </div>
 
+<script>
+  // Stop the per-frame blur from repainting while the header is off-screen.
+  const stages = document.querySelectorAll<HTMLElement>(".blob-stage");
+  if (stages.length && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          entry.target.classList.toggle("is-paused", !entry.isIntersecting);
+        }
+      },
+      { rootMargin: "100px" },
+    );
+    stages.forEach((stage) => io.observe(stage));
+  }
+</script>
+
 <style>
+  /* One blur pass over the whole blob layer instead of a full-area
+     backdrop-filter that has to re-sample the backdrop every frame. */
+  .blobs {
+    filter: blur(64px);
+    will-change: transform;
+    pointer-events: none;
+  }
+
   .blob {
     position: absolute;
     border-radius: 3em;
@@ -52,6 +80,11 @@
     90% {
       transform: scale(1) translate(75px);
     }
+  }
+
+  /* Paused by the IntersectionObserver when the header isn't visible. */
+  .blob-stage.is-paused .blob {
+    animation-play-state: paused;
   }
 
   /* Respect users who ask for less motion. */
