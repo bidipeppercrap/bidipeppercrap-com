@@ -4,12 +4,13 @@ import {
   type Project,
   type Social,
 } from "@bidipeppercrap/schema";
-import { projects as localProjects, socials as localSocials } from "./content.data";
+import { projects, socials } from "../../content";
 
 /**
- * Page content comes from `content.data.ts` (edit, commit, push to deploy).
- * It's parsed through the shared schema so malformed data fails the build,
- * then filtered to published entries and sorted for display.
+ * Loads the page content from `content.ts` (the file you edit). Parsing through
+ * the shared schema applies defaults and fails the build on malformed data,
+ * then we drop unpublished entries and sort for display. You don't normally
+ * edit this file — edit `content.ts` at the app root.
  */
 
 const byOrder = (a: { sortOrder: number }, b: { sortOrder: number }) =>
@@ -17,14 +18,14 @@ const byOrder = (a: { sortOrder: number }, b: { sortOrder: number }) =>
 
 export function getProjects(): Project[] {
   return projectsSchema
-    .parse(localProjects)
+    .parse(projects)
     .filter((p) => p.published)
     .sort(byOrder);
 }
 
 export function getSocials(): Social[] {
   return socialsSchema
-    .parse(localSocials)
+    .parse(socials)
     .filter((s) => s.published)
     .sort(byOrder);
 }

@@ -42,6 +42,8 @@ export const projectSchema = z.object({
   published: z.boolean().default(true),
 });
 export type Project = z.infer<typeof projectSchema>;
+/** Editing shape: fields with defaults (targetUrl, sortOrder, published) may be omitted. */
+export type ProjectInput = z.input<typeof projectSchema>;
 
 export const socialSchema = z.object({
   id: z.number().int().optional(),
@@ -52,6 +54,8 @@ export const socialSchema = z.object({
   published: z.boolean().default(true),
 });
 export type Social = z.infer<typeof socialSchema>;
+/** Editing shape: fields with defaults (sortOrder, published) may be omitted. */
+export type SocialInput = z.input<typeof socialSchema>;
 
 export const projectsSchema = z.array(projectSchema);
 export const socialsSchema = z.array(socialSchema);

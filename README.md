@@ -30,9 +30,11 @@ bun run preview   # preview the build
 
 ## Content
 
-Projects and socials live in `apps/web/src/data/content.data.ts`, validated
-against the shared schema at build time. Logos go in `apps/web/public/logos/`.
-To update the site: edit that file, commit, and push (see Deploy below).
+Projects and socials live in one file — [`apps/web/content.ts`](apps/web/content.ts) —
+validated against the shared schema at build time. Page order follows the order of
+the arrays, and optional fields can be omitted (see the comments in the file). Logos
+go in `apps/web/public/logos/`. To update the site: edit that file, commit, and push
+(see Deploy below).
 
 ## Deploy (Cloudflare Workers — static assets)
 
@@ -76,7 +78,7 @@ cd apps/web && bunx wrangler deploy # deploy from the app dir
 Content lives in the repo, so updating the site is just a push:
 
 ```sh
-# edit apps/web/src/data/content.data.ts
+# edit apps/web/content.ts
 # (add any new logos to apps/web/public/logos/)
 git commit -am "update content"
 git push
