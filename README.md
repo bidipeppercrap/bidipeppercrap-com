@@ -43,16 +43,24 @@ The web app builds to static files (`apps/web/dist`) — no server needed.
 1. Push this repo to GitHub.
 2. Cloudflare dashboard → **Workers & Pages → Create → Pages → Connect to Git**, pick the repo.
 3. Build settings — this is a bun **workspace/monorepo**, so the build must
-   target the app, not the repo root. Pointing it at the root fails detection
-   with _"application detection logic has been run in the root of a workspace."_
-   - **Root directory:** `apps/web` (NOT `/`)
-   - **Framework preset:** Astro
+   run from the **repo root**, where the single `bun.lock` lives. Pages picks
+   the package manager from the lockfile in the root directory; point it at
+   `apps/web` (which has no lockfile) and Pages falls back to **npm**, which
+   can't parse bun's `workspace:*` deps and fails with
+   _`Unsupported URL Type "workspace:": workspace:*`_.
+   - **Root directory:** `/` (repo root — leave empty)
+   - **Framework preset:** None
    - **Build command:** `bun run build`
-   - **Build output directory:** `dist` (relative to the root directory above)
-4. Pages detects `bun.lock` and uses bun automatically; optionally set a
-   `BUN_VERSION` environment variable to pin it. Running `bun install` from
-   `apps/web` still resolves the `@bidipeppercrap/schema` workspace package —
-   bun walks up to the workspace root.
+   - **Build output directory:** `apps/web/dist`
+4. With the root at the repo root, Pages detects `bun.lock` and uses bun
+   automatically — `bun install` resolves the `@bidipeppercrap/schema`
+   workspace package, then `bun run build` emits to `apps/web/dist`. Optionally
+   pin bun with a `BUN_VERSION` environment variable (e.g. `1.3.14`).
+
+   > **Framework preset must be `None`.** The Astro preset runs Cloudflare's
+   > app auto-detection at the repo root, which errors on the `workspaces`
+   > field with _"application detection logic has been run in the root of a
+   > workspace."_ An explicit build command + output directory skips that.
 5. Save & deploy. Every push to `main` redeploys.
 
 ### Option 2 — Manual deploy with Wrangler
