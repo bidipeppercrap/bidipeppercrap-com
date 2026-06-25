@@ -42,13 +42,17 @@ The web app builds to static files (`apps/web/dist`) — no server needed.
 
 1. Push this repo to GitHub.
 2. Cloudflare dashboard → **Workers & Pages → Create → Pages → Connect to Git**, pick the repo.
-3. Build settings:
+3. Build settings — this is a bun **workspace/monorepo**, so the build must
+   target the app, not the repo root. Pointing it at the root fails detection
+   with _"application detection logic has been run in the root of a workspace."_
+   - **Root directory:** `apps/web` (NOT `/`)
    - **Framework preset:** Astro
    - **Build command:** `bun run build`
-   - **Build output directory:** `apps/web/dist`
-   - **Root directory:** `/` (repo root)
+   - **Build output directory:** `dist` (relative to the root directory above)
 4. Pages detects `bun.lock` and uses bun automatically; optionally set a
-   `BUN_VERSION` environment variable to pin it.
+   `BUN_VERSION` environment variable to pin it. Running `bun install` from
+   `apps/web` still resolves the `@bidipeppercrap/schema` workspace package —
+   bun walks up to the workspace root.
 5. Save & deploy. Every push to `main` redeploys.
 
 ### Option 2 — Manual deploy with Wrangler
